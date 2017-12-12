@@ -15,11 +15,11 @@ def load_data_to_db(file_name, db_name):
         db.col.insert(json.loads(my_record.__repr__()))
 
 
-def get_data_from_db_aggregate(db_name, pipeline):
+def get_data_from_db_aggregate(db_name):
     client = MongoClient('localhost', 27017)
     db = client.get_database(db_name)
-#    result = db.col.aggregate([{'$group' : {'_id' : {'weekday':'$weekday', 'blue':'$blue'},"totalCount" : {'$sum' : 1}}}, {'$sort':{"_id":1}}])
-    result = db.col.aggregate(pipeline)
+    result = db.col.aggregate([{'$group' : {'_id' : {'weekday':'$weekday', 'blue':'$blue'},"totalCount" : {'$sum' : 1}}}, {'$sort':{"_id":1}}])
+    #result = db.col.aggregate(pipeline)
     return list(result)
 
 
